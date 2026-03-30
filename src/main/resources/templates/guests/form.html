@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${guest.id == null ? 'New Guest' : 'Edit Guest'}"></title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+    <h1 th:text="${guest.id == null ? 'Add guest' : 'Edit guest'}"></h1>
+
+    <form th:action="${guest.id == null ? '/guests' : '/guests/' + guest.id}" th:object="${guest}" method="post" class="card">
+        <div class="grid">
+            <div>
+                <label for="firstName">First name</label>
+                <input id="firstName" type="text" th:field="*{firstName}" maxlength="50" required>
+            </div>
+            <div>
+                <label for="lastName">Last name</label>
+                <input id="lastName" type="text" th:field="*{lastName}" maxlength="100" required>
+            </div>
+            <div>
+                <label for="group">Group</label>
+                <select id="group" th:field="*{group}" required>
+                    <option th:each="group : ${groups}" th:value="${group}" th:text="${group}"></option>
+                </select>
+            </div>
+            <div>
+                <label for="discount">Discount</label>
+                <select id="discount" th:field="*{discount}" required>
+                    <option th:each="discount : ${discounts}" th:value="${discount}" th:text="${discount}"></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="checks">
+            <label><input type="checkbox" th:field="*{invited}"> Invited</label>
+            <label><input type="checkbox" th:field="*{confirmed}"> Confirmed</label>
+            <label><input type="checkbox" th:field="*{attendingReception}"> Reception</label>
+            <label><input type="checkbox" th:field="*{serviceProvider}"> Service provider</label>
+            <label><input type="checkbox" th:field="*{accommodation}"> Accommodation</label>
+            <label><input type="checkbox" th:field="*{transport}"> Transport</label>
+            <label><input type="checkbox" th:field="*{diet}"> Diet</label>
+        </div>
+
+        <div>
+            <label for="note">Note</label>
+            <textarea id="note" th:field="*{note}" maxlength="300" rows="4"></textarea>
+        </div>
+
+        <div class="errors" th:if="${#fields.hasErrors('*')}">
+            <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+        </div>
+
+        <div class="actions">
+            <button class="button" type="submit">Save</button>
+            <a class="button secondary" th:href="@{/guests}">Cancel</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>
