@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Guests</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+    <div class="header-row">
+        <h1>Wedding Guest Registry</h1>
+        <div>
+            <a class="button" th:href="@{/guests/new}">Add guest</a>
+            <form th:action="@{/logout}" method="post" class="inline-form">
+                <button class="button danger" type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Group</th>
+            <th>Invited</th>
+            <th>Confirmed</th>
+            <th>Reception</th>
+            <th>Discount</th>
+            <th>Service provider</th>
+            <th>Accommodation</th>
+            <th>Transport</th>
+            <th>Diet</th>
+            <th>Note</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.isEmpty(guests)}">
+            <td colspan="14">No guests registered.</td>
+        </tr>
+        <tr th:each="guest : ${guests}">
+            <td th:text="${guest.id}"></td>
+            <td th:text="${guest.firstName}"></td>
+            <td th:text="${guest.lastName}"></td>
+            <td th:text="${guest.group}"></td>
+            <td th:text="${guest.invited}"></td>
+            <td th:text="${guest.confirmed}"></td>
+            <td th:text="${guest.attendingReception}"></td>
+            <td th:text="${guest.discount}"></td>
+            <td th:text="${guest.serviceProvider}"></td>
+            <td th:text="${guest.accommodation}"></td>
+            <td th:text="${guest.transport}"></td>
+            <td th:text="${guest.diet}"></td>
+            <td th:text="${guest.note}"></td>
+            <td>
+                <a class="button secondary" th:href="@{'/guests/' + ${guest.id} + '/edit'}">Edit</a>
+                <form th:action="@{'/guests/' + ${guest.id} + '/delete'}" method="post" class="inline-form">
+                    <button class="button danger" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
