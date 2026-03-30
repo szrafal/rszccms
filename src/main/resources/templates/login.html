@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Manager - Login</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container login-box">
+    <h1>Wedding Manager</h1>
+    <p>Sign in using local account or OAuth2 provider.</p>
+
+    <form th:action="@{/login}" method="post" class="card">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit">Sign in</button>
+    </form>
+
+    <div class="oauth-buttons">
+        <a class="button secondary" th:href="@{/oauth2/authorization/google}">Sign in with Google</a>
+        <a class="button secondary" th:href="@{/oauth2/authorization/facebook}">Sign in with Facebook</a>
+    </div>
+
+    <p class="hint">Default login: <b>admin</b> / <b>password</b></p>
+    <p class="error" th:if="${param.error}">Invalid username or password.</p>
+    <p class="hint" th:if="${param.logout}">You have been logged out.</p>
+</div>
+</body>
+</html>

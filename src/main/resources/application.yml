@@ -1,0 +1,37 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:weddingdb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+  thymeleaf:
+    cache: false
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID:replace-me}
+            client-secret: ${GOOGLE_CLIENT_SECRET:replace-me}
+            scope:
+              - openid
+              - profile
+              - email
+          facebook:
+            client-id: ${FACEBOOK_CLIENT_ID:replace-me}
+            client-secret: ${FACEBOOK_CLIENT_SECRET:replace-me}
+            scope:
+              - public_profile
+              - email
+
+app:
+  security:
+    default-username: admin
+    default-password: password
